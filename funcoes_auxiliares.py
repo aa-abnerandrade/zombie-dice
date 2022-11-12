@@ -98,7 +98,7 @@ def nomear_players(qtd_players):
     return nomes_players    
 
 
-#SORTEAR PLAYERS
+# SORTEAR PLAYERS
 def sortear_jogadores(nomes_players):
     print("\n\033[1;33mSorteando jogadores...\033[m")
     sleep(1)
@@ -108,3 +108,19 @@ def sortear_jogadores(nomes_players):
     return ordem_players
 
 
+# PLAY NO JOGO
+def comecar_jogo():
+    print("\033[0;33m :> Qualquer caractere para começar o jogo. Ou X para sair.\033[m")
+    start_game = str(input(":> \033[1;30;42mInsira aqui:\033[m ")).upper()
+    if (start_game == "X"):
+        cabecalho()
+        print("Jogo Encerrado.") #Sair do jogo
+        return "N" 
+    else:
+        cabecalho()
+        print("Ir para jogo") #Ir para jogo
+        print("\033[1;32mPLAY")
+        sleep(1)
+        print("Que vença o melhor")
+        sleep(1)
+        return "S"

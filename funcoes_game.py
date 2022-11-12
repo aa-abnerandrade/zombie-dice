@@ -6,7 +6,7 @@ import random
 colorama.init()
 
 
-#ESTRUTURANDO PLACAR ZERADO
+#ESTRUTURANDO PLACAR TOTAL ZERADO
 def criarEzerar_placar(ordem_players):
     cont = 0
     pontos_totais_tiro = []  # Zerando Pontos
@@ -47,7 +47,16 @@ def exibir_placar(ordem_players, pontos_totais_cerebro):
 
 # EXIBE DADOS NO COPO DO JOGO
 def mostrar_dados_copo(copo_dados):
-    print(f"Copo de Dados: {copo_dados}\n\n")
+    print(f"\033[1;30;40mCopo de Dados: {copo_dados}\033[m\n")
+
+
+# ZERA OS PONTOS DO TURNO 
+def zerar_pts_turno():
+    return 0
+
+# ZERA PONTOS DA RODADA
+def zerar_pt_rodada():
+    return 0
 
 #SORTEAR DADOS
 def sortear_dados(ponto_rodada_passo, qtd__dados_copo, copo_dados, dados_sorteados):
@@ -60,7 +69,7 @@ def sortear_dados(ponto_rodada_passo, qtd__dados_copo, copo_dados, dados_sortead
         qtd__dados_copo = qtd__dados_copo - 1 # Diminui 1 na quantidade do copo
         copo_dados.pop(indice_de_sorteio) # Retira a cor do copo
         print(f"{cor_dado_sorteado:>15}")
-    return ponto_rodada_passo, qtd__dados_copo, copo_dados, dados_sorteados
+    return qtd__dados_copo, copo_dados, dados_sorteados
 
 # CRIA DADO VERMELHO
 def criar_dado_vermelho(): 
@@ -76,8 +85,7 @@ def criar_dado_verde():
 
 
 #SORTEAR FACES DOS DADOS JÁ SORTEADOS
-def sortear_faces(cont, dados_sorteados, pt_rd_tiro, pt_rd_cerebro, d_vermelho, d_amarelo, d_verde):
-    pt_rd_passo = 0
+def sortear_faces(cont, dados_sorteados, pt_rd_tiro, pt_rd_passo, pt_rd_cerebro, d_vermelho, d_amarelo, d_verde):
     faces_sorteadas = []
     face_sorteada = ''
 
@@ -92,7 +100,7 @@ def sortear_faces(cont, dados_sorteados, pt_rd_tiro, pt_rd_cerebro, d_vermelho, 
         faces_sorteadas.append(face_sorteada)
 
         ######OJOGO__Iniciar__Turno__CadaJogador__CadaRodada__Contabilizar
-        if (face_sorteada == 'Tiro'): # Alterar esse bloco: pulverizar dentro da condicional
+        if (face_sorteada == 'Tiro'): 
             pt_rd_tiro = pt_rd_tiro + 1
         elif (face_sorteada == 'Passo'):
             pt_rd_passo = pt_rd_passo + 1
@@ -103,13 +111,26 @@ def sortear_faces(cont, dados_sorteados, pt_rd_tiro, pt_rd_cerebro, d_vermelho, 
     return pt_rd_tiro, pt_rd_passo, pt_rd_cerebro, faces_sorteadas
 
 
-# EXIBE SCORE DO TURNO
-def exibir_score_turno(ponto_rodada_tiro, ponto_rodada_passo, ponto_rodada_cerebro):
+# EXIBE SCORE DA RODADA
+def exibir_score_rodada(ponto_rodada_tiro, ponto_rodada_passo, ponto_rodada_cerebro):
     print("\n")    
-    print(f"\033[1;43m==================== Score do Turno:\033[m")
+    print(f"\033[1;43m==================== Pontos da Rodada:\033[m")
     print(f"Tiro: {ponto_rodada_tiro}")
     print(f"Passo: {ponto_rodada_passo}")
     print(f"Cérebro: {ponto_rodada_cerebro}")
+
+
+# EXIBE SCORE DO TURNO
+def exibir_score_turno(ponto_turno_tiro, ponto_turno_passo, ponto_turno_cerebro):
+    print("\n")    
+    print(f"\033[1;43m==================== Pontos do Turno:\033[m")
+    print(f"Tiro: {ponto_turno_tiro}")
+    print(f"Passo: {ponto_turno_passo}")
+    print(f"Cérebro: {ponto_turno_cerebro}")
+
+
+# EXIBE SCORE ACUMULADO TOTAL
+
 
 # CHECA DERROTA
 def checar_derrota(ptTiro):
@@ -130,7 +151,12 @@ def checar_vitoria(ptCerebro):
 # CHECA SE JOGADOR DESEJA CONTINUAR COM MAIS 1 RODADA:
 def checar_continuidade_rodada():
     continuar = str(input("\n\033[1;30;42m :> Continuar com + 1 Rodada?\033[m [S/N]")).upper()
-    return True
+    if (continuar == 'S'):
+        return True
+    else:
+        return False
+
+    
     
     
 
