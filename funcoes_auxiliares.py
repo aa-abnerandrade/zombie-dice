@@ -4,6 +4,7 @@ from time import sleep
 import random
 
 colorama.init()
+# Fim da configuração
 
 
 # CABECALHO
@@ -21,8 +22,9 @@ def cabecalho():
 def exibir_orientacoes():
     """
     Exibe as orientações do jogo e condições de vitória e derrota. 
-    Pergunta ao usuário se deseja continuar para o jogo ou se finaliza o jogo. 
-    :return: Retorna String inserida pelo usuário para seguir com o jogo ou encerrar o programa.
+    Pergunta ao usuário se deseja continuar para o jogo ou se finaliza o jogo.
+
+    :return: Retorna string inserida pelo usuário para seguir com o jogo ou encerrar o programa.
     """
 
     print("Devore cérebros e desvie dos tiros. Você é um zombie. E você quer céééérebros. Mais cérebros do que os seus amigos zombies. \n"
@@ -40,11 +42,16 @@ def exibir_orientacoes():
 
 
 # QUANTIDADE DE JOGADORES
-def definir_qtd_players(qtd_players, confirma__qtd_players):
+def definir_qtd_players(confirma__qtd_players):
+    """
+    Registra e confirma a quantidade de jogadores.
 
+    :param confirma__qtd_players: Valor inicial "N".
+    :return: Retorna a quantidade de jogadores e a confirmação.
+    """
     while (confirma__qtd_players != "S"):
         try:
-            qtd_players = int(input(":> Quantas pessoas jogarão? ")) # Mínimo 2 jogadores
+            qtd_players = int(input(":> Quantas pessoas jogarão? "))  # Mínimo 2 jogadores
             if (qtd_players < 2):
                 print("\033[1;37;47m => Para jogar é necessário 2 ou mais jogadores. \033[m\n")
                 continue
@@ -54,20 +61,25 @@ def definir_qtd_players(qtd_players, confirma__qtd_players):
 
         confirma__qtd_players = str(input(f"\nShow! Teremos {qtd_players} jogadores. \033[1;30;42mConfirma?\033[m [S/N]:  ")).upper()
         if (confirma__qtd_players == "N"):
-            #print("Enviar user para Redefinir quantidade de jogadores")  # Redefinir quantidade de jogadores
             cabecalho()
             continue
         elif (confirma__qtd_players not in "NS"):
             while (confirma__qtd_players not in "NS"):
                 confirma__qtd_players = str(input(f"Por favor, confirme {qtd_players} jogadores utilizando S ou N: ")).upper()
-        else:
-            return qtd_players
+
+        return qtd_players
 
 
 # NOMEAR JOGADORES
 def nomear_players(qtd_players):
+    """
+    Registra e confirma os nicks dos jogadores.
+ 
+    :param qtd_players: Quantidade de jogadores.
+    :return: Retorna lista com nicks dos jogadores.
+    """
+    global nomes_players
     print(f"\n\nBeleza! Teremos {qtd_players} jogadores. \nAgora identifique os jogadores.\n")
-    cont = 1
     confirma__nome_players = "N"
     while (confirma__nome_players != "S"):
         nomes_players = []
@@ -75,52 +87,60 @@ def nomear_players(qtd_players):
         for cont in range(1, qtd_players+1):
             nome = str(input(f':> Nick do {cont}° jogador: ')).upper()
             nomes_players.append(nome)
-        #print(nome_players) # Print de Teste
 
 
-        print(f"\nJogadores: ") # Exbindo nicks dos jogadores
+        print(f"\nJogadores: ")  # Exbindo nicks dos jogadores
         for cont in range(0, qtd_players):
             print(f"{nomes_players[cont]:>15}")
 
-        confirma__nome_players = str(input("\033[1;30;42mConfirma?\033[m [S/N]: ")).upper() # confirmação dos nicks de jogadores
+        confirma__nome_players = str(input("\033[1;30;42mConfirma?\033[m [S/N]: ")).upper()  # Confirmação dos nicks de jogadores
         if (confirma__nome_players == "N"):
-            #print(" Enviar para Redefinir nick de jogadores") #Redefinir nick de jogadores
             print()
             continue
         elif (confirma__nome_players != "S" and confirma__nome_players != "N"):
             while (confirma__nome_players != "S" and confirma__nome_players != "N"):
-                #print("Outros caracteres") # Print de Teste
                 confirma__nome_players = str(input(f"Confirma nicks dos jogadores? [S/N] ")).upper()
                 continue
         elif (confirma__nome_players == "S"):
-            #print("Enviar para jogo") # Continua para Jogo
             break
     return nomes_players    
 
 
 # SORTEAR PLAYERS
 def sortear_jogadores(nomes_players):
+    """
+    Cria a sequência em que cada gamer jogará
+
+    :param nomes_players: Nomes dos jogadores conforme inserido pelo usuário
+    :return: Retorna lista com nicks dos jogadores em sequência aleatória
+    """
     print("\n\033[1;33mSorteando jogadores...\033[m")
     sleep(1)
     ordem_players = nomes_players
     random.shuffle(ordem_players)
-    #print(ordem_players)
+    for i in range(0, len(ordem_players)):
+        print(f"{ordem_players[i]:>15}")
     return ordem_players
 
 
 # PLAY NO JOGO
 def comecar_jogo():
+    """
+    Verifica se o usuário deseja iniciar o jogo. É possível escolher entre seguir para o jogo ou encerrar a aplicação.
+
+    :return: String para variável de controle que inicia ou encerra o game no arquivo principal
+    """
     print("\033[0;33m :> Qualquer caractere para começar o jogo. Ou X para sair.\033[m")
     start_game = str(input(":> \033[1;30;42mInsira aqui:\033[m ")).upper()
     if (start_game == "X"):
         cabecalho()
-        print("Jogo Encerrado.") #Sair do jogo
+        print("Jogo Encerrado.")  # Sair do jogo
         return "N" 
     else:
         cabecalho()
-        print("Ir para jogo") #Ir para jogo
         print("\033[1;32mPLAY")
         sleep(1)
         print("Que vença o melhor")
         sleep(1)
         return "S"
+
