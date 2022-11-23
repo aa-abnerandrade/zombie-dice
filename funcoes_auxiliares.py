@@ -22,7 +22,7 @@ def cabecalho():
 def exibir_orientacoes():
     """
     Exibe as orientações do jogo e condições de vitória e derrota. 
-    Pergunta ao usuário se deseja continuar para o jogo ou se finaliza o jogo.
+    Pergunta ao usuário se deseja continuar para o jogo ou sair da aplicação.
 
     :return: Retorna string inserida pelo usuário para seguir com o jogo ou encerrar o programa.
     """
@@ -144,3 +144,18 @@ def comecar_jogo():
         sleep(1)
         return "S"
 
+
+# RETIRAR DADO SORTEADO
+def retirar_dado_sorteado(qtdDados, copo_dados, indiceSorteado):
+    """
+    Retira do copo o objeto dado e o respectivo valor.
+
+    :param qtdDados: Quantidade de dados que tem no copo.
+    :param copo_dados: Lista com os dados presentes no copo.
+    :param indiceSorteado: Posição do dado sorteado na lista do copo de dados.
+
+    :return: Quantidade atualizada de dados disponíveis no copo e lista de dados disponíveis.
+    """
+    qtdDados -= 1
+    copo_dados.pop(indiceSorteado)
+    return qtdDados, copo_dados

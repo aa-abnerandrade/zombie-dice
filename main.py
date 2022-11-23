@@ -91,7 +91,7 @@ while (play_game == "S"):
             play_rodada_jogador = str(input(f"\n:> {player}, insira S para sortear {(qtd_dados_ajogar - pt_rodada_pass)} dados => "))
 
             # 4----OJOGO__PLAY__RODADA__SorteioDados
-            print('\033[1;30;40mDados Sorteados: \033[m')
+            print('\033[1;30;47mDados Sorteados: \033[m')
             qtd__dados_copo, copo_dados, dados_sorteados = funcoes_game.sortear_dados(pt_rodada_pass, qtd__dados_copo, copo_dados, dados_sorteados)
 
 
@@ -103,7 +103,7 @@ while (play_game == "S"):
             play_rodada = str(input('\n:> Insira S para jogar os dados => ')).upper()
             sleep(1)
 
-            pt_rodada_tir, pt_rodada_pass, pt_rodada_cer, faces_sorteadas = funcoes_game.sortear_faces(0, dados_sorteados, pt_rodada_tir, pt_rodada_pass, pt_rodada_cer, faces_dado_vermelho, faces_dado_amarelo, faces_dado_verde)
+            pt_rodada_tir, pt_rodada_pass, pt_rodada_cer, faces_sorteadas = funcoes_game.sortear_faces(dados_sorteados, pt_rodada_tir, pt_rodada_pass, pt_rodada_cer, faces_dado_vermelho, faces_dado_amarelo, faces_dado_verde)
             
             pts_turno_tiro += pt_rodada_tir
             pts_turno_passo += pt_rodada_pass
@@ -119,7 +119,7 @@ while (play_game == "S"):
 
             if (funcoes_game.checar_derrota(pts_turno_tiro)):  # Checa Vitória
                 print("PERDEEU O TURNO!")
-                print(f"{pts_turno_tiro} tiros te atingiram. E você perdeu os {pts_turno_cerebro} cérebros conquistados neste turno.")
+                print(f"{pts_turno_tiro} tiros te atingiram. E voc? perdeu os {pts_turno_cerebro} cérebros conquistados neste turno.")
                 pontos_totais_cerebro[indice_player] -= pts_turno_cerebro
                 pontos_totais_tiro[indice_player] = 0
                 pontos_totais_passo[indice_player] = 0
